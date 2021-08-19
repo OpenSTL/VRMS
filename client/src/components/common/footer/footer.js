@@ -1,6 +1,7 @@
 import React from 'react';
 import './footer.scss';
 import RedirectLink from '../link/link';
+import { BRIGADE_NAME } from '../../../utils/themes/themes';
 import { useSelector } from 'react-redux';
 
 const Footer = () => {
@@ -12,6 +13,7 @@ const Footer = () => {
       <div className="text-block">Logged in as {user.email}</div>
     </footer>
   ) : (
+    BRIGADE_NAME === "Hack for LA" &&
     <footer data-testid="footer" className="app-footer">
       <div className="text-block">
         <span>VRMS</span> was developed by Hack for LA

@@ -1,15 +1,23 @@
 import React from 'react';
 import './header.scss';
-import logo from '../../../assets/images/logo.svg';
+import laLogo from '../../../assets/images/la-logo.svg';
+import stlLogo from '../../../assets/images/stl-logo.svg'
 import RedirectLink from '../link/link';
 import { useSelector, useDispatch } from 'react-redux';
 import allActions from '../../../store/actions';
+import { BRIGADE_NAME } from '../../../utils/themes/themes';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const isMenuOpen = useSelector((state) => state.dashboard.isMenuOpen);
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const [logo, setLogo] = useState();
+
+  useEffect(() => {
+    BRIGADE_NAME === "Hack for LA" ? setLogo(laLogo) : setLogo(stlLogo)
+  }, []);
 
   function toggleMenu() {
     if (!isMenuOpen) {

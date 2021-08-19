@@ -1,6 +1,7 @@
 import React from 'react';
 import App from './App';
 import { render, screen, cleanup } from '@testing-library/react';
+import { BRIGADE_NAME } from '../src/utils/themes/themes.js';
 
 beforeEach(() => {
   render(<App />);
@@ -29,10 +30,12 @@ describe('App', () => {
     expect(screen.getByText('Create account')).toBeInTheDocument();
   });
 
-  test('Should render with footer', () => {
-    expect(screen.getByTestId('footer')).toBeInTheDocument();
-    expect(
-      screen.getByText('was developed by Hack for LA')
-    ).toBeInTheDocument();
-  });
+  if (BRIGADE_NAME === "Hack for LA") {
+    test('Should render with footer', () => {
+      expect(screen.getByTestId('footer')).toBeInTheDocument();
+      expect(
+        screen.getByText('was developed by Hack for LA')
+      ).toBeInTheDocument();
+    });
+  }
 });
