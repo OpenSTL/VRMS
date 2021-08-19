@@ -3,6 +3,7 @@ import 'react-redux';
 import Footer from './footer';
 import { screen, fireEvent } from '@testing-library/react';
 import { useSelector } from 'react-redux';
+import { BRIGADE_NAME } from '../../../utils/themes/themes';
 import {
   authDefaultState,
   userAuthSuccessMockState,
@@ -19,6 +20,7 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
+if (BRIGADE_NAME === "Hack for LA") {
 describe('Should display main Footer for not authorized users', () => {
   beforeEach(() => {
     useSelector.mockImplementation((callback) => {
@@ -39,14 +41,12 @@ describe('Should display main Footer for not authorized users', () => {
       screen.getByText('was developed by Hack for LA')
     ).toBeInTheDocument();
     expect(screen.getByTestId('footer')).toBeInTheDocument();
-  });
-
+  })
   test('Should exist the tooltip', () => {
     expect(screen.getByTestId('tooltip')).toBeInTheDocument();
     expect(screen.getByTestId('link')).toBeInTheDocument();
     expect(screen.getByTestId('link')).toHaveAttribute('href', '/page');
   });
-
   test('Should navigate to dummy page after clicking on the link', () => {
     expect(screen.getByTestId('link')).toBeInTheDocument();
     fireEvent.click(screen.getByTestId('link'));
@@ -57,6 +57,7 @@ describe('Should display main Footer for not authorized users', () => {
     expect(screen.queryByTestId('footer-logged-in')).toBeFalsy();
   });
 });
+}
 
 describe('Should display Footer for authorized users', () => {
   beforeEach(() => {
@@ -84,6 +85,7 @@ describe('Should display Footer for authorized users', () => {
   });
 });
 
+if (BRIGADE_NAME === "Hack for LA") {
 describe('Should display the main Footer if authorization fails', () => {
   beforeEach(() => {
     useSelector.mockImplementation((callback) => {
@@ -98,6 +100,7 @@ describe('Should display the main Footer if authorization fails', () => {
     useSelector.mockClear();
   });
 
+
   test('Should render main Footer with text content', () => {
     expect(screen.getByTestId('footer')).toBeInTheDocument();
     expect(
@@ -110,3 +113,4 @@ describe('Should display the main Footer if authorization fails', () => {
     expect(screen.queryByTestId('footer-logged-in')).toBeFalsy();
   });
 });
+};
